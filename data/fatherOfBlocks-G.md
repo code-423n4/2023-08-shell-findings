@@ -1,0 +1,1 @@
+- L81/89/97/106 - The functions elapsed, t, p_min, p_max are only used within the library, therefore they could be private, instead of public.
