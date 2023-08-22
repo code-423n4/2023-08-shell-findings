@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Praise",
+  "risk": "3",
+  "title": "faulty check in EvolvingProteus.swapGivenInputAmount() and some other functions may always cause a revert.",
+  "issueId": 9,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/9"
+}
