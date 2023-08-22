@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "ptsanev",
+  "risk": "3",
+  "title": "Fee function checks the wrong condition, could lead to incorrect fees",
+  "issueId": 13,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/13"
+}
