@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "sl1",
+  "risk": "2",
+  "title": "Deposit / Withdraw / Swap functions lack slippage control and are missing a deadline check, which makes them vulnerable to front-running.",
+  "issueId": 22,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/22"
+}
