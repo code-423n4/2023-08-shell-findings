@@ -86,3 +86,55 @@ Reorganize the equation to eliminate the use of .sub() and simplified the subtra
 
 
             int128 result = xBalance * (ABDKMath64x64.ONE - ABDKMath64x64.divu(ABDKMath64x64.ONE, expPart));
+
+## [G-07] 
+
+The visibility modifier public was not necessary for the BASE_FEE constant, as it's not being accessed externally. Changing it to constant only makes it internally accessible and can save a tiny amount of gas during deployment.
+
+- Original Code:
+
+
+        uint256 public constant BASE_FEE = 800;
+- update
+
+
+          uint256 constant BASE_FEE = 800;
+## [G-08]
+
+In the calculateM function, the division operation was called on ABDKMath64x64, which is a fixed-point math library. However, for integer division, Solidity provides the .divu() function directly on the int128 type. Using the native .divu() function can be more efficient than calling the library for division.
+- Original Code:
+
+
+        function calculateM(int128 xAmount, int128 xBalance, int128 yBalance) internal pure returns (int128) {
+           return ABDKMath64x64.divu(xAmount.mul(yBalance), xBalance);
+       }
+
+- Update
+
+
+        function calculateM(int128 xAmount, int128 xBalance, int128 yBalance) internal pure returns (int128) {
+            return xAmount.mul(yBalance).divu(xBalance);
+        }
+
+## [G-09]
+
+Remove the unnecessary usage of the ABDKMath64x64.divu() function for calculating the maximum price ratio. Since py_init, px_init, py_final, and px_final are all of type int128, using native subtraction and division operators is more efficient than calling a library function.
+
+- Original Code:
+
+
+        require(
+            py_init.div(py_init.sub(px_init)) <= ABDKMath64x64.divu(uint256(MAX_PRICE_RATIO), 1) &&
+            py_final.div(py_final.sub(px_final)) <= ABDKMath64x64.divu(uint256(MAX_PRICE_RATIO), 1),
+            "MaximumAllowedPriceRatioExceeded"
+        );
+
+- Update
+
+
+        require(
+            py_init.div(py_init - px_init) <= MAX_PRICE_RATIO &&
+            py_final.div(py_final - px_final) <= MAX_PRICE_RATIO,
+            "MaximumAllowedPriceRatioExceeded"
+        );
+
