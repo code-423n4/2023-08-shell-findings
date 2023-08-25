@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "T1MOH",
+  "risk": "2",
+  "title": "Final balances may be out of range due to lack of validation in `_reserveTokenSpecified()`",
+  "issueId": 59,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/59"
+}
