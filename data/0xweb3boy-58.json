@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "0xweb3boy",
+  "risk": "2",
+  "title": "Function swapGivenInputAmount() will always revert",
+  "issueId": 58,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/58"
+}
