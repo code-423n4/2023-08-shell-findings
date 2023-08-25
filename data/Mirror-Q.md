@@ -1,3 +1,6 @@
+## Timestamp reliability on L2
+Timestamp information on Arbitrum can be less reliable than on mainnet. As mentioned in [Uniswap docs](https://docs.uniswap.org/concepts/protocol/oracle#optimism):
+> The `block.timestamp` of these blocks, however, reflect the `block.timestamp` of the last L1 block ingested by the Sequencer.
 ## Redundant code
 - `a` and `b` are the results of the square root. Thus, their values won't be less than 0, making the check `if(a < 0 && b < 0)` redundant.
   ```js
