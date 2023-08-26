@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "seerether",
+  "risk": "3",
+  "title": "Owner could potentially update the curve configuration parameters in a malicious way to steal funds. ",
+  "issueId": 86,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/86"
+}
