@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Inspecktor",
+  "risk": "3",
+  "title": "Deposit will not work properly with tokens with a transfer fee",
+  "issueId": 74,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/74"
+}
