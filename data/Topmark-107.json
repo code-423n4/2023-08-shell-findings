@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Topmark",
+  "risk": "2",
+  "title": "No Proper Error Handling for possible Multiplication OverFlow and DOS in _getUtility Function",
+  "issueId": 107,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/107"
+}
