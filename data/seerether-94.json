@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "seerether",
+  "risk": "3",
+  "title": "View functions are vulnerable to front running attacks by miners",
+  "issueId": 94,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/94"
+}
