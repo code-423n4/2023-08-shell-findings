@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "seerether",
+  "risk": "3",
+  "title": "MIN_BALANCE can potentially allow the pool to be drained down to a very low level",
+  "issueId": 99,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/99"
+}
