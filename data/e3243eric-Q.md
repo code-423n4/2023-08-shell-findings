@@ -1,0 +1,2 @@
+[L-01] There are decimal differences between `FIXED_FEE` and `amount` in the _applyFeeByRounding function.
+The 'amount' is a 64-digit decimal, while the 'FIXED_FEE' might be an 18-digit decimal. This could potentially lead to confusion for developers.
