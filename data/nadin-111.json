@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "nadin",
+  "risk": "2",
+  "title": "Lack of a `divide-by-zero` check can cause `_getUtility()` to revert.",
+  "issueId": 111,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/111"
+}
