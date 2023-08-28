@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "`MIN_BALANCE` INVARIANT IS NOT CHECKED FOR THE `FINAL LP TOKEN SUPPLY` AMOUNT IN THE `_reserveTokenSpecified` FUNCTION THUS BREAKING EXPECTED BEHAVIOUR OF THE PROTOCOL",
+  "issueId": 205,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/205"
+}
