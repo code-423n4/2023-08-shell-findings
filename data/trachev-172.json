@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "trachev",
+  "risk": "2",
+  "title": "Missing _checkAmountWithBalance check in deposit functions",
+  "issueId": 172,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/172"
+}
