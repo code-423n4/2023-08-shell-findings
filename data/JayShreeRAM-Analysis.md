@@ -34,7 +34,7 @@ I spent approximately 11 Hours
 
 The codebase of Evolving Proteus demonstrates a sophisticated approach to liquidity management, blending elements from established AMMs while introducing a new dimension of time-based concentration adjustments. The architecture's modularity enhances user interactions and separates the core algorithmic logic from external interactions.
 
-##Broader Concerns and Approach:
+## Broader Concerns and Approach:
 
 The analysis considered systemic and centralization risks, but the information provided did not explicitly delve into potential vulnerabilities. An external audit would be instrumental in identifying security loopholes that might not be apparent in an internal review.
 
@@ -43,6 +43,8 @@ The analysis considered systemic and centralization risks, but the information p
 This audit provided insights into the innovative mechanism of Evolving Proteus and the significance of enforcing constraints to prevent errors and losses. The examination of constraints, invariants, and safeguards highlighted the careful consideration given to the stability and security of the protocol.
 
 The approach taken in this analysis was to provide a high-level overview and recommendations based on the provided information. Conducting an actual audit would involve an in-depth code review, testing, and potential interactions with the protocol's development team.
+
+
 
 ### Time spent:
 11 hours
