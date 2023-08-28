@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Audinarey",
+  "risk": "2",
+  "title": "```swapGivenInputAmount()``` will always revert",
+  "issueId": 192,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/192"
+}
