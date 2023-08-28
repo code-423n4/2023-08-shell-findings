@@ -160,7 +160,7 @@ https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteu
 ## Deadline protection is needed to complement outdated slippage
 Outdated slippage could undesirably allow a pending transaction to execute in the absence of a deadline param. Loss of funds/tokens for the protocol/callers could occur considering block execution is delegated to the block validator without a hard deadline. 
 
-Although all key function calls involving [swaps, LP token minting/burning](https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteus.sol#L266-L490) from LiquidityPool.sol have slippage protections, they fail to provide the deadline which is crucial to avoid unexpected trades/losses for users and protocol.
+Although all key function calls involving [swaps, LP token minting/burning](https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteus.sol#L266-L490) in EvolvingProteus.sol from [LiquidityPool.sol](https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/LiquidityPool.sol) have slippage protections, they fail to provide the deadline which is crucial to avoid unexpected trades/losses for users and protocol.
 
 Without a deadline, the transaction might be left hanging in the mempool and be executed way later than the user has desired. This could lead to users/protocol getting a worse price, because a validator could just hold onto the transaction and work around to putting the transaction in a block that is exploit prone.
 
