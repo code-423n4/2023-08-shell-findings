@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Udsen",
+  "risk": "3",
+  "title": "`reserve balances` AND `reserve balance ratio` INVARIANTS ARE NOT CHECKED INSIDE THE `_reserveTokenSpecified` FUNCTION THUS ENABLING `deposit` AND `withdraw` TRANSACTIONS TO BREAK THESE INVARIANTS",
+  "issueId": 191,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/191"
+}
