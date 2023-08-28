@@ -157,17 +157,59 @@ https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteu
 -        int256 disc = int256(Math.sqrt(uint256((bQuad**2 - (aQuad.muli(cQuad)*4)))));
 +        int256 disc = int256(Math.sqrt(uint256((bQuad**2 - (aQuad.muli(cQuad)<<2)))));
 ```
-## Deadline protection is needed to complement outdated slippage
-Outdated slippage could undesirably allow a pending transaction to execute in the absence of a deadline param. Loss of funds/tokens for the protocol/callers could occur considering block execution is delegated to the block validator without a hard deadline. 
+## Avoid operation when assigning values to constants
+Consider assigning direct and discrete value to a constant instead of adopting mathematical/typecasting/etc operations. Otherwise the operation will have to be executed each time the constant is called. For example, instead using `10**9`, use `1e9` or `1_000_000_000`. Keep the operated codes in the comments though.
 
-Although all key function calls involving [swaps, LP token minting/burning](https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteus.sol#L266-L490) in EvolvingProteus.sol from [LiquidityPool.sol](https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/LiquidityPool.sol) have slippage protections, they fail to provide the deadline which is crucial to avoid unexpected trades/losses for users and protocol.
+Here are the instances found.
 
-Without a deadline, the transaction might be left hanging in the mempool and be executed way later than the user has desired. This could lead to users/protocol getting a worse price, because a validator could just hold onto the transaction and work around to putting the transaction in a block that is exploit prone.
+https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteus.sol
 
-One part of this change is that PoS block proposers know ahead of time if they're going to propose the next block. The validators and the entire network know who's up to bat for the current block and the next one. This means the block proposers are known for at least 6 minutes and 24 seconds and at most 12 minutes and 48 seconds, as documented in the link below:
+```solidity
+146:    uint256 constant INT_MAX = uint256(type(int256).max);
 
-https://blog.bytes032.xyz/p/why-you-should-stop-using-block-timestamp-as-deadline-in-swaps
+151:    int256 constant MIN_BALANCE = 10**12;
 
-Nevertheless, I am not sure if this would be treated as out of scope since the best place to implement it is in LiquidityPool.sol. If it is, just treat this finding as being informational.
+181:    uint256 constant MAX_BALANCE_AMOUNT_RATIO = 10**11;
 
-![image](https://user-images.githubusercontent.com/143369715/263581268-e34f2912-e43b-4b11-bc26-be64889236bd.png)
+191:    uint256 constant FIXED_FEE = 10**9;
+
+201:    int256 constant MAX_PRICE_RATIO = 10**4; 
+```
+## Activate the optimizer
+Before deploying your contract, activate the optimizer when compiling using “solc --optimize --bin sourceFile.sol”. By default, the optimizer will optimize the contract assuming it is called 200 times across its lifetime. If you want the initial contract deployment to be cheaper and the later function executions to be more expensive, set it to “ --optimize-runs=1”. Conversely, if you expect many transactions and do not care for higher deployment cost and output size, set “--optimize-runs” to a high number.
+
+```
+module.exports = {
+solidity: {
+version: "0.8.10",
+settings: {
+  optimizer: {
+    enabled: true,
+    runs: 1000,
+  },
+},
+},
+};
+```
+Please visit the following site for further information:
+
+https://docs.soliditylang.org/en/v0.5.4/using-the-compiler.html#using-the-commandline-compiler
+
+Here's one example of instance on opcode comparison that delineates the gas saving mechanism:
+
+for !=0 before optimization
+```
+PUSH1 0x00
+DUP2
+EQ
+ISZERO
+PUSH1 [cont offset]
+JUMPI
+```
+after optimization
+```
+DUP1
+PUSH1 [revert offset]
+JUMPI
+```
+Disclaimer: There have been several bugs with security implications related to optimizations. For this reason, Solidity compiler optimizations are disabled by default, and it is unclear how many contracts in the wild actually use them. Therefore, it is unclear how well they are being tested and exercised. High-severity security issues due to optimization bugs have occurred in the past . A high-severity bug in the emscripten -generated solc-js compiler used by Truffle and Remix persisted until late 2018. The fix for this bug was not reported in the Solidity CHANGELOG. Another high-severity optimization bug resulting in incorrect bit shift results was patched in Solidity 0.5.6. Please measure the gas savings from optimizations, and carefully weigh them against the possibility of an optimization-related bug. Also, monitor the development and adoption of Solidity compiler optimizations to assess their maturity.
