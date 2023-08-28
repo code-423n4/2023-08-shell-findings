@@ -43,7 +43,7 @@ https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f619
 ### Impact
 If the comment states that the ``amount cannot be less than 0,`` but the ``require(result < 0)`` is checking for a negative result, then indeed there is an inconsistency between the comment and the condition.
 
-If the intention is to ensure that the ``amoun`` (which seems to be represented by the result variable) should not be less than 0, then the correct condition would be require(result >= 0)
+If the intention is to ensure that the ``amount`` (which seems to be represented by the result variable) should not be less than 0, then the correct condition would be require(result >= 0)
 
 ### POC
 
