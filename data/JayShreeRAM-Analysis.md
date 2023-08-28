@@ -94,7 +94,7 @@ The approach taken in this analysis was to provide a high-level overview and rec
 
 ## Time spent
 
-In a span of 11 hours, my efforts were divided into understanding the mechanism through the whitepaper , reviewing the codebase , testing the code , and crafting a detailed report .
+In a span of 15 hours, my efforts were divided into understanding the mechanism through the whitepaper , reviewing the codebase , testing the code , and crafting a detailed report .
 
 ## More about Shell's Evolving Proteus:
 
@@ -104,5 +104,7 @@ In conclusion, the audit highlights the innovative nature of Evolving Proteus wh
 
 
 
+
+
 ### Time spent:
-11 hours
+15 hours
