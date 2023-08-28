@@ -42,3 +42,15 @@ corrected comment is: "px_final The final price at the x axis"
 
 https://github.com/code-423n4/2023-08-shell/blob/8ed551004f470489e070c1dd617d67eb4bf114e6/src/proteus/EvolvingProteus.sol#L249
 
+
+6. LOW: if comment below is correct: "greater than the MIN_BALANCE", then this if statement should be corrected to include `=` as follows: (x <= MIN_BALANCE || y <= MIN_BALANCE). However, if this line is correct as is, then the comment above needs to be changed to "greater than or equal to the MIN_BALANCE"
+
+Comment:
+    /**
+     * @dev The pool's balances of the x reserve and y reserve tokens must be
+     *  greater than the MIN_BALANCE
+     * @dev The pool's ratio of y to x must be within the interval
+     *  [MIN_M, MAX_M)
+     */
+
+https://github.com/code-423n4/2023-08-shell/blob/8ed551004f470489e070c1dd617d67eb4bf114e6/src/proteus/EvolvingProteus.sol#L810
