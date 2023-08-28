@@ -73,7 +73,7 @@ As denoted in the [Moralis academy article](https://academy.moralis.io/blog/what
 
 "... If a node receives a new chain that’s longer than its current active chain of blocks, it will do a chain reorg to adopt the new chain, regardless of how long it is."
 
-Depending on the outcome, if it ended up placing the transaction earlier than anticipated, many of the system function calls could backfire. With slippage protection, this should not affect a swap or an LP token minting. But it could interfere with other function calls involving governance, Ducth auction etc that the protocol might need to be aware of.     
+Depending on the outcome, if it ended up placing the transaction earlier than anticipated, many of the system function calls could backfire. With slippage protection, this should not affect a swap or an LP token minting/burning. But it could interfere with other function calls involving governance, Ducth auction etc that the protocol might need to be aware of.     
 
 (Note: On Ethereum this is unlikely but this is meant for contracts going to be deployed on any compatible EVM chain many of which like Polygon, Optimism, Arbitrum are frequently reorganized.)
 
@@ -157,3 +157,15 @@ https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteu
 -        int256 disc = int256(Math.sqrt(uint256((bQuad**2 - (aQuad.muli(cQuad)*4)))));
 +        int256 disc = int256(Math.sqrt(uint256((bQuad**2 - (aQuad.muli(cQuad)<<2)))));
 ```
+## Deadline protection is needed to complement outdated slippage
+Outdated slippage could undesirably allow a pending transaction to execute in the absence of a deadline param. Loss of funds/tokens for the protocol/callers could occur considering block execution is delegated to the block validator without a hard deadline. 
+
+Although all key function calls involving [swaps, LP token minting/burning](https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteus.sol#L266-L490) from LiquidityPool.sol have slippage protections, they fail to provide the deadline which is crucial to avoid unexpected trades/losses for users and protocol.
+
+Without a deadline, the transaction might be left hanging in the mempool and be executed way later than the user has desired. This could lead to users/protocol getting a worse price, because a validator could just hold onto the transaction and work around to putting the transaction in a block that is exploit prone.
+
+One part of this change is that PoS block proposers know ahead of time if they're going to propose the next block. The validators and the entire network know who's up to bat for the current block and the next one. This means the block proposers are known for at least 6 minutes and 24 seconds and at most 12 minutes and 48 seconds, as documented in the link below:
+
+https://blog.bytes032.xyz/p/why-you-should-stop-using-block-timestamp-as-deadline-in-swaps
+
+Nevertheless, I am not sure if this would be treated as out of scope since the best place to implement it is in LiquidityPool.sol. If it is, just treat this finding as being informational.
