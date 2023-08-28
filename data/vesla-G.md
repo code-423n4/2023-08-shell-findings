@@ -1,0 +1,3 @@
+# Bitwise shift left can be used to save gas in multiplication by 4 in _getUtility
+
+In `_getUtility`, [line 716](https://github.com/code-423n4/2023-08-shell/blob/main/src/proteus/EvolvingProteus.sol#L716), `disc` is calculated as: `int256 disc = int256(Math.sqrt(uint256((bQuad**2 - (aQuad.muli(cQuad)*4)))));`. Instead of multiplying by 4, `aQuad.muli(cQuad)*4`, shift left by 2: `aQuad.muli(cQuad) << 2` save gas because `MUL` cost 5 gas and `SHL` cost only 3.
