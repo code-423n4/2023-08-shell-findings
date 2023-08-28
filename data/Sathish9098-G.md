@@ -31,3 +31,50 @@ FILE: 2023-08-shell/src/proteus/EvolvingProteus.sol
 17: }
 
 ```
+
+With assembly, .call (bool success) transfer can be done gas-optimized
+
+return data (bool success,) has to be stored due to EVM architecture, but in a usage like below, 'out' and 'outsize' values are given (0,0), this storage disappears and gas optimization is provided.
+
+https://twitter.com/pashovkrum/status/1607024043718316032?t=xs30iD6ORWtE2bTTYsCFIQ&s=19
+
+Recommendation Code:
+
+contracts\library\UtilLib.sol:
+
+- 168:         (bool success, ) = payable(_receiver).call{value: _amount}('');
++              address addr = payable(_receiver)
++              bool success;
++              assembly {
++              sent := call(gas(), _receiver, _amount, 0, 0, 0, 0)
++              }
+  169:         if (!success) {
+  170:             revert TransferFailed();
+  171:         }
+
+if () / require() statements that check input arguments should be at the top of the function
+Checks that involve constants should come before checks that involve state variables, function calls, and calculations. By doing these checks first, the function is able to revert before wasting a Gcoldsload (2100 gas) in a function that may ultimately revert in the unhappy case.
+
+Reduce Gas Costs by Emitting Events Outside of For Loops
+Placing events inside loops results in the event being emitted at each iteration, which can significantly increase gas consumption. By moving events outside the loop and emitting them globally, unnecessary gas expenses can be minimized, leading to more efficient and cost-effective contract execution.
+
+Use nested if and, avoid multiple check combinations
+Using nested is cheaper than using && multiple check combinations. There are more advantages, such as easier to read code and better coverage reports.
+
+Do not calculate constants variables
+Due to how constant variables are implemented (replacements at compile-time), an expression assigned to a constant variable is recomputed each time that the variable is used, which wastes some gas.
+
+State variables can be cached 
+
+Don't cache if used once
+
+Result of function call should be cached rather than call the function more than once
+
+Reducing the number of state variable updates can save gas. In Ethereum, every storage operation costs a significant amount of gas. Therefore, optimizing the contract to minimize storage operations can lead to substantial gas savings.
+
+Don't emit state variable 
+
+Calldata instead of memory 
+
+
+
