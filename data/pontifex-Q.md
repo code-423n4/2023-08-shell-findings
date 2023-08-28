@@ -14,6 +14,8 @@ The comment `amount cannot be less than 0` should be `amount should be less than
 488:        require(result < 0);
 ```
 https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L295-L296
+
+
 The comment `We use FEE_UP because we want to increase the perceived amount of` should be `We use FEE_DOWN because we want to increase the perceived amount of`.
 ```solidity
 459:     * @dev We use FEE_UP because we want to increase the perceived amount of
@@ -21,6 +23,15 @@ The comment `We use FEE_UP because we want to increase the perceived amount of` 
 481:            FEE_DOWN,
 ```
 https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L459
+
+
+The comment `Calculates the b variable in the curve eq which is basically a sq. root of the inverse of x instantaneous price` should be `Calculates the b variable in the curve eq which is basically a sq. root of the of x instantaneous price`.
+```solidity
+120:       @notice Calculates the b variable in the curve eq which is basically a sq. root of the inverse of x instantaneous price
+...
+124:        return p_min(self).sqrt();
+```
+https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L120
 
 
 ### L-2 Insufficient comments for magic values.
