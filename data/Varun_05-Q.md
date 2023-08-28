@@ -33,3 +33,5 @@ function p_min(Config storage self) public view returns (int128) {
     uint256 public constant BASE_FEE = 800;
 in comments it is written that 25 basis points but base_fee is declared with 800 basis points
 
+## No need to define FEE_DOWN explicitly as false
+The default value of a boolean is false so no need to explicitly mark as false
