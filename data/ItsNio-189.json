@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "ItsNio",
+  "risk": "2",
+  "title": "Existing checks with `INT_MAX` are insufficient such that the contract becomes dysfunctional after initial deployment of some large balance(s)",
+  "issueId": 189,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/189"
+}
