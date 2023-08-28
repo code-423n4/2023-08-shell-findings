@@ -169,3 +169,5 @@ One part of this change is that PoS block proposers know ahead of time if they'r
 https://blog.bytes032.xyz/p/why-you-should-stop-using-block-timestamp-as-deadline-in-swaps
 
 Nevertheless, I am not sure if this would be treated as out of scope since the best place to implement it is in LiquidityPool.sol. If it is, just treat this finding as being informational.
+
+![image](https://user-images.githubusercontent.com/143369715/263581268-e34f2912-e43b-4b11-bc26-be64889236bd.png)
