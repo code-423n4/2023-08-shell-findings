@@ -24,3 +24,11 @@ function p_min(Config storage self) public view returns (int128) {
         else return self.px_init.mul(ABDK_ONE.sub(t(self))).add(self.px_final.mul(t(self)));
     }
    so here t is subtracted from ABDK_ONE which is a large number so clearly the percentage definiton can be miss interpretted.
+
+## Natspec info about a variable doesn't correctly interprets the correct value of the constant BASE_FEE 
+/** 
+     @notice 
+     Equivalent to roughly twenty-five basis points since fee is applied twice.
+    */
+    uint256 public constant BASE_FEE = 800;
+in comments it is written that 25 basis points but base_fee is declared with 800 basis points
