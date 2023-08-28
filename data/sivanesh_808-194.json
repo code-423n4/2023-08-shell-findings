@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "sivanesh_808",
+  "risk": "2",
+  "title": "Condition will not revert when block.timestamp is == to the compared variable",
+  "issueId": 194,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/194"
+}
