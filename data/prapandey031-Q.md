@@ -367,7 +367,7 @@ Min reserve ratio: The ratio between the two reserves cannot fall below a certai
 ```
 The minimum price value calculated with abdk library equivalent to 10^10(wei)
 ```
-4)LOC-459 should have the comment:
+4) LOC-459 should have the comment:
 ```
 We use FEE_DOWN because we want to decrease the perceived amount of reserve tokens leaving the pool and to decrease the observed amount of LP tokens being burned.
 ```
