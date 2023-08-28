@@ -11,11 +11,12 @@
 | [L-03] | Missing event emission for critical storage configurations                                   | 1         |
 | [L-04] | Use a sentinel value in SpecifiedToken enum to represent default state                       | 1         |
 | [L-05] | Mathematical terminology should be updated to better suit the intentions of the calculations | 1         |
+| [L-06] | Loss of precision due to division occurring before multiplication                            | 2         |
 
 
 **Total Non-Critical issues: 32 instances across 4 issues
-Total Low-severity issues: 5 instances across 5 issues
-Total issues: 37 instances across 9 issues**
+Total Low-severity issues: 7 instances across 6 issues
+Total issues: 39 instances across 10 issues**
 
 ## [N-01] Refactor contract architecture to improve code readability and maintainability
 
@@ -327,4 +328,37 @@ File: src/proteus/EvolvingProteus.sol
 716: int256 disc = int256(Math.sqrt(uint256((bQuad**2 - (aQuad.muli(cQuad)*4)))));
 ```
 
- 
+## [L-06] Loss of precision due to division occurring before multiplication
+
+Performing multiplication before division is generally better to avoid loss of precision because Solidity integer division might truncate.
+
+**Note: This finding is different from the [[L-06] bot finding](https://gist.github.com/code423n4/ae96f6f8d2dd6eb71d2cc84c85cfac91#l-06-loss-of-precision-on-division) due to two reasons:**
+**1. The bot finding in the first place is not a division before multiplication issue.**
+**2. This issue is due to loss of precision occurring across three statements.**
+
+There are 2 instances of this issue:
+
+https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L750C2-L752C52
+https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L781C2-L783C54 
+
+The loss of precision occurs here due to division occurring before multiplication across the three statements. If we take a look at this simplified equation for f_2, we can see division occurs before multiplication on step 4: https://drive.google.com/file/d/1qVgf9ycl4tnCrRR1TR19WIt47YM-xHpd/view 
+```solidity
+File: src/proteus/EvolvingProteus.sol
+781:    int256 f_0 = (( y0  * MULTIPLIER ) / utility) + b_convert;
+782:    int256 f_1 = ( ((MULTIPLIER)*(MULTIPLIER) / f_0) - a_convert );
+783:    int256 f_2 = (f_1 * utility) / (MULTIPLIER); 
+```
+Thus, it is better to use the simplified equation (on last line of the image) to avoid the division before multiplication issue. **Note: I have purposely not further simplified the equation since a_convert and b_convert use the [muli() function](https://github.com/abdk-consulting/abdk-libraries-solidity/blob/5e1e7c11b35f8313d3f7ce11c1b86320d7c0b554/ABDKMath64x64.sol#L163) from the ABDK library and not the * operator for multiplication. Therefore, in order to not interfere with the ABDK multiplication it has been kept like this. Here is what the most simplified equation looks like (although we will not be using it)**: 
+
+Here u = utility, and M = MULTIPLIER (a and b do not represent a_convert and b_convert),
+
+$f2 = u*M * (u + a * y0 + a*b*u)$
+
+The following changes below  are done for the [_getPointGivenYandUtility() function](https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L770C14-L770C39). The same can be done for the [_getPointGivenXandUtility() function](https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L739).
+
+**Solution**:
+```solidity
+File: src/proteus/EvolvingProteus.sol
+781:    int256 uM = (utility*MULTIPLIER);
+782:    int256 f_2 = (uM*uM - uM * a_convert * y0 + utility*utility*a_convert*b_convert)/MULTIPLIER;
+```
