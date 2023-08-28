@@ -38,7 +38,7 @@ The following attack vectors were pursued:
 - Are there trivial swaps that result in a loss of user funds e.g. a swap in at init. time and a reverse swap at final time?
 - Is it possible to perform a sequence of swaps that result in a loss of user funds?
 - Is fee accounting performed correctly?
-- Do the the fuzz tests explore a significant portion of the problem domain?
+- Do the fuzz tests explore a significant portion of the problem domain?
 
 # [02] Codebase Quality Analysis
 
@@ -85,6 +85,8 @@ Gas prices are a significant component of an AMM. Evolving Proteus targets Arbit
 
 **Ecosystem Reliance**
 As an AMM primitive in the Shell Protocol's Ocean, there may be vulnerabilities in Ocean which impact Evolving Proteus.
+
+
 
 ### Time spent:
 24 hours
