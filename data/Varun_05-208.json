@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Varun_05",
+  "risk": "2",
+  "title": "Accounting for Fixed_Fee and Base_Fee twice leading to less amount or token recieved",
+  "issueId": 208,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/208"
+}
