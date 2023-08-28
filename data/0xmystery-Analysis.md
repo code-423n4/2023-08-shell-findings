@@ -1,0 +1,32 @@
+This report aims to provide a comprehensive analysis of the EvolvingProteus contract's codebase. Key issues, recommendations, and insights into the code's structure, quality, and potential risks are discussed. The analysis begins with a breakdown of specific findings, highlighting areas of concern, ranging from computational inconsistencies to potential financial discrepancies. The approach taken during this evaluation relied heavily on understanding the broader intentions of the protocol, aided by the provided documentation and links. While the codebase's overall structure was commendable, certain areas warranted attention, such as unreachable code blocks, coding style suggestions, and typographical errors. Furthermore, potential centralization and systemic risks were identified, emphasizing the need for continuous review and mitigation strategies. The report is complemented by a flowchart illustrating the contract's intricate relationships and dependencies. The overarching aim is to ensure the contract's robustness, transparency, and efficiency, safeguarding both developers and users alike.
+
+## Comments for the judge on my contextualized findings
+I submitted a high and a medium findings, and herewith on their breakdown in the summary below:
+
+1. **Inconsistent Scaling in Quadratic Formula Computation (High)**: 
+The _getUtility function, critical for calculating the utility of a pool based on a quadratic formula, contains a scaling inconsistency between its terms, potentially causing inaccuracies in the discriminant's computation. This can affect the contract's operation and mislead users, possibly resulting in financial discrepancies. Specifically, the scaling discrepancy between bQuad^2 (in 128.128 fixed-point format) and aQuad.muli(cQuad) * 4 (in 64.64 format) can make the discriminant falsely positive, avoiding expected complex solutions. To rectify this, it's recommended to refactor the terms for consistent scaling and update the inline documentation to clarify the expected scaling and any manual adjustments.
+2. **Final Amount to be Greater Than or Equal to the FIXED_FEE in `_applyFeeByRounding` Function NOT Guaranteed (Medium)**:
+The _applyFeeByRounding function is designed to impose a fee on transactions. However, a flaw in its fee calculation logic might result in a final amount that's less than the defined FIXED_FEE. Specifically, when the function deducts fees and the feeUp flag is false, the resultant amount, under certain conditions, can be smaller than FIXED_FEE. To address this issue, it's recommended to restructure the fee calculation or introduce added validations to ensure the final amount always meets or exceeds the FIXED_FEE. Proposed changes to the function are provided to rectify the discrepancy.
+
+## Approach taken in evaluating the codebase
+As always, I started off by reading the docs and links provided to help gain a good understanding on the accounting and business intentions of the protocol. Covering both the in scope and the out of scope sections are necessary to help piece together all puzzles relating to the specific contract under audit in this contest. I agree with the general consensus that the codebase is very well structured, making it near to impossible to detect any critical vulnerabilities. Nonetheless, it is intriguing knowing that my high school math could be put to such a practical use in smart contract auditing that I have never imagined. Certainly there is a time for everything regardless of the contest results.  
+
+## Architecture recommendations
+I suggest having the contract under audit equipped with a complete set of NatSpec detailing all input and output parameters pertaining to each functions although much has been done in specifying each @dev. Additionally, a thorough set of flowcharts, and if possible a video walkthrough, could mean a lot to the developers/auditors/users in all areas of interests. 
+
+## Codebase quality analysis
+In analyzing the EvolvingProteus contract's codebase quality, several areas warrant attention: The function _getUtility possesses an unreachable 'if' block due to the properties of the square root function. There are coding style suggestions, including using uint256 over uint for clarity and using decimal instead of hexadecimal for readability. Several typographical errors exist in the code comments, and inconsistencies have been spotted in descriptions regarding BASE_FEE and reserve ratios. When the discriminant is zero, refactoring is recommended to calculate only one root. The contract is also susceptible to chain reorganization attacks on the Arbitrum L2 EVM-compatible chain. Bit shifting, a more efficient alternative to multiplication/division by factors of two, has been advised. Lastly, while slippage protection exists, deadline protection is suggested to complement it, preventing potential transaction delays that can affect trade outcomes, especially in PoS systems where block proposers are known in advance.
+
+## Centralization risks
+There should not be much of a concern here considering the single contract under audit revolves around its dependency and trustworthiness in computational math. The onus lies on the calling contract on the key view functions. But I would suggest looking into some form of pausing/freezing visibilities (catering to emergencies) that have been deemed missing in both the in scope and the out of scope contracts. 
+
+## Mechanism review
+Here is a complete flow chart serving to augment a user's overall perceptions on how each function relates to one another both externally and internally. It also highlights the contract's connections to the imported libraries particularly on the key methods associated:
+   
+![image](https://user-images.githubusercontent.com/143369715/263581268-e34f2912-e43b-4b11-bc26-be64889236bd.png)
+
+## Systemic risks
+Given that the contract has not gone live yet to be battle tested, systemic risks remain an unknown threat. I think continued efforts in getting additional mitigation reviews are of paramount importance to better safeguard the first of its kind deFi logic both in terms of atomicity and the gas reduced transactions. Perhaps, the proto-governance the protocol has already implemented through Toucan Votes could play a vital part in defraying the context of concern.  
+
+### Time spent:
+40 hours
