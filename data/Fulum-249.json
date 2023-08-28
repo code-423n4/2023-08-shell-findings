@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Fulum",
+  "risk": "3",
+  "title": "Error of computation break the LpTokens supply, causes users to lose funds and make functions using `_getUtilityFinalLp()` broken.",
+  "issueId": 249,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/249"
+}
