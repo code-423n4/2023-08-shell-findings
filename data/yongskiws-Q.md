@@ -19,7 +19,7 @@ Division by large numbers may result in the result being zero, due to solidity n
 see : https://github.com/code-423n4/2023-08-shell/blob/main/bot-report.md#l-06-loss-of-precision-on-division
 
 ```solidity
-File: c:\Users\user\Desktop\analyzer\4naly3er\contracts\example\EvolvingProteus.sol
+File: EvolvingProteus.sol
 830:     uint256 absoluteValue = negative ? uint256(-amount) : uint256(amount);
 831:   
 
@@ -39,7 +39,7 @@ Dividing an integer by another integer will often result in loss of precision. W
 
 ``` solidity
 
-File: c:\Users\user\Desktop\analyzer\4naly3er\contracts\example\EvolvingProteus.sol
+File: EvolvingProteus.sol
 716:    int256 disc = int256(Math.sqrt(uint256((bQuad**2 - (aQuad.muli(cQuad)*4)))));
 
 151:    int256 constant MIN_BALANCE = 10**12;
@@ -123,7 +123,7 @@ Consider true and false FEE UP AND FEE DOWN, the implementation when receiving a
 
  ```solidity
  
-File: c:\Users\user\Desktop\analyzer\4naly3er\contracts\example\EvolvingProteus.sol
+File: EvolvingProteus.sol
 206:     bool constant FEE_UP = true;
 207:     /** 
 208:       @notice 
@@ -160,7 +160,7 @@ File: c:\Users\user\Desktop\analyzer\4naly3er\contracts\example\EvolvingProteus.
 The divisions below take an input parameter which does not have any zero-value checks, which may lead to the functions reverting when zero is passed.
 
 ```solidity
-File: c:\Users\user\Desktop\analyzer\4naly3er\contracts\example\EvolvingProteus.sol
+File: EvolvingProteus.sol
 506:     function _swap(
 507:         bool feeDirection,
 508:         int256 specifiedAmount,
