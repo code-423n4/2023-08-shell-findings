@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "JP_Courses",
+  "risk": "2",
+  "title": "EvolvingProteus::constructor() - During deployment of this contract the constructor will revert if the constants MAX_PRICE_VALUE and/or MIN_PRICE_VALUE are assigned to parameters `py_init` or `py_final` AND/OR `px_init` or `px_final` respectively, as valid & acceptable max/min values.",
+  "issueId": 145,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/145"
+}
