@@ -1,5 +1,22 @@
 # QA Report
 
+| QA     | Issues                                                                                       | Instances |
+|--------|----------------------------------------------------------------------------------------------|-----------|
+| [N-01] | Refactor contract architecture to improve code readability and maintainability               | 2         |
+| [N-02] | Incorrect comments should be rectified for better code understandability                     | 4         |
+| [N-03] | Use `<=` instead of `<` to correctly match intention of the INT_MAX threshold                | 25        |
+| [N-04] | Refactor code to improve code readability and maintainabiilty                                | 1         |
+| [L-01] | Use a more recent version of Solidity                                                        | 1         |
+| [L-02] | Missing check for duration in constructor                                                    | 1         |
+| [L-03] | Missing event emission for critical storage configurations                                   | 1         |
+| [L-04] | Use a sentinel value in SpecifiedToken enum to represent default state                       | 1         |
+| [L-05] | Mathematical terminology should be updated to better suit the intentions of the calculations | 1         |
+
+
+**Total Non-Critical issues: 32 instances across 4 issues
+Total Low-severity issues: 5 instances across 5 issues
+Total issues: 37 instances across 9 issues**
+
 ## [N-01] Refactor contract architecture to improve code readability and maintainability
 
 There are 2 instances of this:
@@ -21,20 +38,20 @@ The EvolvingProteus contract can be divided into two files, one with the interna
 
 ## [N-02] Incorrect comments should be rectified for better code understandability
 
-There are 3 instances of this:
+There are 4 instances of this:
 
 https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L459
 
 This correction is being made since we use FEE_DOWN in the [function withdrawGivenInputAmount()](https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L481).
 
 Incorrect comment:
-```
+```solidity
 459:      * @dev We use FEE_UP because we want to increase the perceived amount of
 460:      *  reserve tokens leaving the pool and to increase the observed amount of
 461:      *  LP tokens being burned.
 ```
 Corrected comment:
-```
+```solidity
 459:      * @dev We use FEE_DOWN because we want to decrease the perceived amount of
 460:      *  reserve tokens leaving the pool and to decrease the observed amount of
 461:      *  LP tokens being burned.
@@ -42,11 +59,11 @@ Corrected comment:
 
 https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L120
 Incorrect comment:
-```
+```solidity
 120: @notice Calculates the b variable in the curve eq which is basically a sq. root of the inverse of x instantaneous price
 ```
 Corrected comment:
-```
+```solidity
 120: @notice Calculates the b variable in the curve eq which is basically a sq. root of the of x instantaneous price
 ```
 
@@ -55,12 +72,23 @@ https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f619
 This correction is being made since min price value is 10^-8.
 
 Incorrect comment:
-```
+```solidity
 173:  The minimum price value calculated with abdk library equivalent to 10^12(wei)
 ```
 Corrected comment:
-```
+```solidity
 173:  The minimum price value calculated with abdk library equivalent to 10^10(wei)
+```
+
+https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L831C9-L833C26
+
+The comment does not include the BASE_FEE being cut from the absoluteValue. It should include the BASE_FEE in the comments to better suit the deduction occurring in the code.
+
+Incorrect comment:
+```solidity
+831:        // FIXED_FEE * 2 because we will possibly deduct the FIXED_FEE from
+832:        // this amount, and we don't want the final amount to be less than
+833:        // the FIXED_FEE.
 ```
 
 ## [N-03] Use `<=` instead of `<` to correctly match intention of the INT_MAX threshold
@@ -117,6 +145,25 @@ File: src/proteus/EvolvingProteus.sol
 842:  require(roundedAbsoluteAmount < INT_MAX);
 ```
 
+## [N-04] Refactor code to improve code readability and maintainabiilty
+
+There is 1 instance of this:
+
+https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L812C4-L813C72
+
+The if-else block follows the pattern if(A) then do X, else if(B) then do X. If either of the conditions are met, we still execute the same statement X. Thus, it would make sense to refactor the conditions in one if block with the || operator.
+
+Instead of this:
+```solidity
+File: src/proteus/EvolvingProteus.sol
+812:       if (finalBalanceRatio < MIN_M) revert BoundaryError(x,y);
+813:       else if (MAX_M <= finalBalanceRatio) revert BoundaryError(x,y);
+```
+Use this:
+```solidity
+File: src/proteus/EvolvingProteus.sol
+812:       if (finalBalanceRatio < MIN_M || MAX_M <= finalBalanceRatio) revert BoundaryError(x,y);
+```
 
 ## [L-01] Use a more recent version of Solidity
 
@@ -273,7 +320,7 @@ There is 1 instance of this:
 
 https://github.com/code-423n4/2023-08-shell/blob/c61cf0e01bada04c3d6055acb81f61955ed600aa/src/proteus/EvolvingProteus.sol#L716
 
-In the mathematical terminology, $b^2 - 4ac$ is the discriminant and not $\sqrt{b^2 - 4ac}$ 
+In mathematical terminology, $b^2 - 4ac$ is the discriminant and not $\sqrt{b^2 - 4ac}$ 
 Thus, the variable name should be updated from disc to sqrtDisc to better match the implementation of the calculations and the usage of correct mathematical terminology.
 ```solidity
 File: src/proteus/EvolvingProteus.sol
