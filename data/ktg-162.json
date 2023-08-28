@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "ktg",
+  "risk": "3",
+  "title": "Improper handling of cases when total supply = 0",
+  "issueId": 162,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/162"
+}
