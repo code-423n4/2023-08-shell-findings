@@ -1,0 +1,8 @@
+{
+  "contest": 277,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "UNSAFE CASTING CAN LEAD TO ERRORNEOUS `utility` VALUE CALCULATION",
+  "issueId": 200,
+  "issueUrl": "https://github.com/code-423n4/2023-08-shell-findings/issues/200"
+}
