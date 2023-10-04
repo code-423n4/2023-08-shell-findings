@@ -846,16 +846,16 @@ I analyzed and audited the subject in the following steps:
 ### Analysis of the code base
 
 Image #1:
-![image](https://github.com/code-423n4/2023-08-shell/assets/104318932/400f9589-3205-44b7-acdd-fd40e294b529)
+![https://user-images.githubusercontent.com/135237830/272598282-fc7ef308-e406-4d35-8ead-b66a0815ced1.png](https://user-images.githubusercontent.com/135237830/272598282-fc7ef308-e406-4d35-8ead-b66a0815ced1.png)
 <br>
 
 Image #2:
-![image](https://github.com/code-423n4/2023-08-shell/assets/104318932/4b4642b2-6542-43e1-8bc8-10f82b0db842)
+![https://user-images.githubusercontent.com/135237830/272598604-957b19f6-97a7-47d0-9b47-b2f81c6b046b.png](https://user-images.githubusercontent.com/135237830/272598604-957b19f6-97a7-47d0-9b47-b2f81c6b046b.png)
 <br>
 
 ### Test analysis
 
-![image](https://github-production-user-asset-6210df.s3.amazonaws.com/104318932/263106195-d74148f3-53c5-414d-9da0-06eeb6ef1b6a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230929%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230929T133737Z&X-Amz-Expires=300&X-Amz-Signature=a9d8f4bf033364484a006afd90bb280840a15e83fadd73919ba7976d9075c82a&X-Amz-SignedHeaders=host&actor_id=135237830&key_id=0&repo_id=667831363)
+*Note: image has been removed due to an outdated link*
 
 ForkEvolvingProteus.t.sol : 
 - Invariant tests can be great tools for shaking out invalid assumptions, complex edge cases, and unexpected interactions in a smart contract system. But it can also be challenging to channel the fuzzer's unconstrained chaos into a suite of meaningful, reliable tests.
@@ -946,7 +946,7 @@ Here is a summary of the issues found in the audit report with Exposure Analysis
 
 [Audit Report TrailOfBits](https://github.com/trailofbits/publications/blob/master/reviews/ShellProtocolv2.pdf)
 
-![image](https://github-production-user-asset-6210df.s3.amazonaws.com/104318932/263415736-422c099c-7b57-4493-826e-6885fc1f20d8.png)
+![https://user-images.githubusercontent.com/135237830/272598859-9f8e7dca-3da4-4b21-b828-6264b275b936.png](https://user-images.githubusercontent.com/135237830/272598859-9f8e7dca-3da4-4b21-b828-6264b275b936.png)
 
 ### Gas Optimization
 
